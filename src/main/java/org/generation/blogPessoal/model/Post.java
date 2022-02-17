@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "postagem")
-public class Postagem {
+@Table(name = "post")
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
