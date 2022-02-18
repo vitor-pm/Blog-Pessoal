@@ -10,4 +10,11 @@ import org.springframework.stereotype.Repository;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     public List<Post> findAllByTitleContainingIgnoreCase(String title);
+
+    public List<Post> findAllByTitleStartingWith(String title);
+
+    public List<Post> getByTitle(String title);
+
+    // public List<Post> FindById(int id);
+
 }
