@@ -4,12 +4,14 @@ import java.nio.charset.Charset;
 import org.apache.commons.codec.binary.Base64;
 import java.util.Optional;
 
+import org.generation.blogPessoal.dtos.UserLoginDTO;
 import org.generation.blogPessoal.model.User;
-import org.generation.blogPessoal.model.UserLogin;
 import org.generation.blogPessoal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class UserService {
@@ -18,15 +20,22 @@ public class UserService {
     private UserRepository userRepository;
 
     public User registerUser(User user) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        String passwordEncoder = encoder.encode(user.getPassword());
-        user.setPassword(passwordEncoder);
+        Optional<User> receive = userRepository.findByUsername(user.getUsername());
 
-        return userRepository.save(user);
+        if (receive.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
+        } else {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+            String passwordEncoder = encoder.encode(user.getPassword());
+            user.setPassword(passwordEncoder);
+
+            return userRepository.save(user);
+        }
     }
 
-    public Optional<UserLogin> login(Optional<UserLogin> user) {
+    public Optional<UserLoginDTO> login(Optional<UserLoginDTO> user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         Optional<User> us = userRepository.findByUsername(user.get().getUsername());
 

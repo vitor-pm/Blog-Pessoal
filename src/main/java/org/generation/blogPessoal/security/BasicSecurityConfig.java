@@ -1,8 +1,8 @@
 package org.generation.blogPessoal.security;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,7 +31,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/user/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/user/login").permitAll()
                 .antMatchers("/user/register").permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic()

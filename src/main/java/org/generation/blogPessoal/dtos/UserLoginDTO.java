@@ -1,6 +1,6 @@
-package org.generation.blogPessoal.model;
+package org.generation.blogPessoal.dtos;
 
-public class UserLogin {
+public class UserLoginDTO {
 
     private String name;
 
