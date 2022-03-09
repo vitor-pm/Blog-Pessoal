@@ -10,8 +10,9 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class UserModel {
 
+    // System generated
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -27,6 +28,23 @@ public class User {
     @NotNull
     @Size(min = 5, max = 100)
     private String password;
+
+    // Constructors
+    public UserModel() {
+    }
+
+    public UserModel(long id, String name, String username, String password) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+    }
+
+    public UserModel(String name, String username, String password) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+    }
 
     public long getId() {
         return id;

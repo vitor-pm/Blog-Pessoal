@@ -3,7 +3,7 @@ package org.generation.blogPessoal.controller;
 import java.util.Optional;
 
 import org.generation.blogPessoal.dtos.UserLoginDTO;
-import org.generation.blogPessoal.model.User;
+import org.generation.blogPessoal.model.UserModel;
 import org.generation.blogPessoal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,9 +29,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(userService.registerUser(user));
+    public ResponseEntity<UserModel> register(@RequestBody UserModel user) {
+        return userService.registerUser(user).map(resp -> ResponseEntity.status(201).body(resp))
+                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
 }

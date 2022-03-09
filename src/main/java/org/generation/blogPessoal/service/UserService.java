@@ -5,7 +5,7 @@ import org.apache.commons.codec.binary.Base64;
 import java.util.Optional;
 
 import org.generation.blogPessoal.dtos.UserLoginDTO;
-import org.generation.blogPessoal.model.User;
+import org.generation.blogPessoal.model.UserModel;
 import org.generation.blogPessoal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,9 +19,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User registerUser(User user) {
+    public Optional<UserModel> registerUser(UserModel user) {
 
-        Optional<User> receive = userRepository.findByUsername(user.getUsername());
+        Optional<UserModel> receive = userRepository.findByUsername(user.getUsername());
 
         if (receive.isPresent()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
@@ -31,13 +31,13 @@ public class UserService {
             String passwordEncoder = encoder.encode(user.getPassword());
             user.setPassword(passwordEncoder);
 
-            return userRepository.save(user);
+            return Optional.ofNullable(userRepository.save(user));
         }
     }
 
     public Optional<UserLoginDTO> login(Optional<UserLoginDTO> user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        Optional<User> us = userRepository.findByUsername(user.get().getUsername());
+        Optional<UserModel> us = userRepository.findByUsername(user.get().getUsername());
 
         if (us.isPresent()) {
             if (encoder.matches(user.get().getPassword(), us.get().getPassword())) {
