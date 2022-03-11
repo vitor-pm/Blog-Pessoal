@@ -8,6 +8,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Entity
 @Table(name = "user")
 public class UserModel {
@@ -21,6 +23,7 @@ public class UserModel {
     @Size(min = 2, max = 100)
     private String name;
 
+    @Schema(example = "email@email.com.br")
     @NotNull
     @Size(min = 5, max = 100)
     private String username;
