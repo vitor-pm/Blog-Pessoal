@@ -14,7 +14,6 @@ public class UserRegisterDTO {
     private String password;
 
     public UserRegisterDTO(@NotNull String name, @NotNull String username, @NotNull String password) {
-        super();
         this.name = name;
         this.username = username;
         this.password = password;

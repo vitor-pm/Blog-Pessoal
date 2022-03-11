@@ -54,7 +54,6 @@ public class PostController {
     @DeleteMapping("/{id}")
     public void deletePost(@PathVariable Long id) {
         repository.deleteById(id);
-        ;
     }
 
 }

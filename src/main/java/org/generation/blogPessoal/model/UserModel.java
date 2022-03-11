@@ -38,6 +38,8 @@ public class UserModel {
     @Size(min = 5, max = 100)
     private String password;
 
+    private String picture;
+
     @OneToMany(mappedBy = "creator", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("creator")
     List<Post> myPosts;
@@ -97,6 +99,14 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
 }
