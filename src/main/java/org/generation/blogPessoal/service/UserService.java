@@ -4,7 +4,11 @@ import java.nio.charset.Charset;
 import org.apache.commons.codec.binary.Base64;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
+import org.generation.blogPessoal.dtos.UserCredentialsDTO;
 import org.generation.blogPessoal.dtos.UserLoginDTO;
+import org.generation.blogPessoal.dtos.UserRegisterDTO;
 import org.generation.blogPessoal.model.UserModel;
 import org.generation.blogPessoal.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +23,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public Optional<UserModel> registerUser(UserModel user) {
+    public Optional<UserModel> registerUser(@Valid UserRegisterDTO user) {
 
         Optional<UserModel> receive = userRepository.findByUsername(user.getUsername());
 
@@ -27,15 +31,18 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists");
         } else {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            user.setPassword(encoder.encode(user.getPassword()));
 
-            String passwordEncoder = encoder.encode(user.getPassword());
-            user.setPassword(passwordEncoder);
+            UserModel userModel = new UserModel(
+                    user.getName(),
+                    user.getUsername(),
+                    user.getPassword());
 
-            return Optional.ofNullable(userRepository.save(user));
+            return Optional.ofNullable(userRepository.save(userModel));
         }
     }
 
-    public Optional<UserLoginDTO> login(Optional<UserLoginDTO> user) {
+    public Optional<UserCredentialsDTO> login(Optional<UserCredentialsDTO> user) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         Optional<UserModel> us = userRepository.findByUsername(user.get().getUsername());
 

@@ -1,17 +1,23 @@
 package org.generation.blogPessoal.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
-@Table(name = "user")
+@Table(name = "tb_user")
 public class UserModel {
 
     // System generated
@@ -31,6 +37,18 @@ public class UserModel {
     @NotNull
     @Size(min = 5, max = 100)
     private String password;
+
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties("creator")
+    List<Post> myPosts;
+
+    public List<Post> getMyPosts() {
+        return myPosts;
+    }
+
+    public void setMyPosts(List<Post> myPosts) {
+        this.myPosts = myPosts;
+    }
 
     // Constructors
     public UserModel() {

@@ -38,6 +38,11 @@ public class Post {
     @JsonIgnoreProperties("posts")
     private Theme theme;
 
+    @NotNull
+    @ManyToOne
+    @JsonIgnoreProperties("myPosts")
+    private UserModel creator;
+
     public long getId() {
         return this.id;
     }
@@ -76,6 +81,14 @@ public class Post {
 
     public void setTheme(Theme theme) {
         this.theme = theme;
+    }
+
+    public UserModel getCreator() {
+        return creator;
+    }
+
+    public void setCreator(UserModel creator) {
+        this.creator = creator;
     }
 
 }

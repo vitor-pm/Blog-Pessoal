@@ -2,7 +2,8 @@ package org.generation.blogPessoal.controller;
 
 import java.util.Optional;
 
-import org.generation.blogPessoal.dtos.UserLoginDTO;
+import org.generation.blogPessoal.dtos.UserCredentialsDTO;
+import org.generation.blogPessoal.dtos.UserRegisterDTO;
 import org.generation.blogPessoal.model.UserModel;
 import org.generation.blogPessoal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,13 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<UserLoginDTO> autentication(@RequestBody Optional<UserLoginDTO> user) {
+    public ResponseEntity<UserCredentialsDTO> autentication(@RequestBody Optional<UserCredentialsDTO> user) {
         return userService.login(user).map(resp -> ResponseEntity.ok(resp))
                 .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserModel> register(@RequestBody UserModel user) {
+    public ResponseEntity<UserModel> register(@RequestBody UserRegisterDTO user) {
         return userService.registerUser(user).map(resp -> ResponseEntity.status(201).body(resp))
                 .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }

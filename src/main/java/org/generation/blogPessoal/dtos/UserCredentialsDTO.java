@@ -1,14 +1,22 @@
 package org.generation.blogPessoal.dtos;
 
-import javax.validation.constraints.NotNull;
+public class UserCredentialsDTO {
 
-public class UserLoginDTO {
+    private String name;
 
-    @NotNull
     private String username;
 
-    @NotNull
     private String password;
+
+    private String token;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getUsername() {
         return username;
@@ -24,6 +32,14 @@ public class UserLoginDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
 }
