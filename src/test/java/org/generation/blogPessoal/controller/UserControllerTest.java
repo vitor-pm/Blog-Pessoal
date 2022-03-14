@@ -92,7 +92,7 @@ public class UserControllerTest {
 
                 ResponseEntity<UserModel> response = testRestTemplate
                                 .withBasicAuth("maria_silva@email.com", "123456")
-                                .exchange("/user/register", HttpMethod.PUT, requisition, UserModel.class);
+                                .exchange("/user/update", HttpMethod.PUT, requisition, UserModel.class);
 
                 assertEquals(HttpStatus.OK, response.getStatusCode());
                 assertEquals(userUpdate.getName(), response.getBody().getName());
