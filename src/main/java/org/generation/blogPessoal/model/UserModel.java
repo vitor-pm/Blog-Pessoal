@@ -40,6 +40,16 @@ public class UserModel {
 
     private String picture;
 
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @OneToMany(mappedBy = "creator", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("creator")
     List<Post> myPosts;

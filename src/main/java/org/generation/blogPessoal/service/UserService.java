@@ -57,10 +57,13 @@ public class UserService {
                 String authHeader = "Basic " + new String(encodeAuth);
 
                 userLog = new UserCredentialsDTO(
+                        us.get().getId(),
                         us.get().getName(),
                         us.get().getUsername(),
                         us.get().getPassword(),
-                        authHeader);
+                        authHeader,
+                        us.get().getPicture(),
+                        us.get().getRole());
 
                 return ResponseEntity.status(HttpStatus.OK).body(userLog);
             } else {

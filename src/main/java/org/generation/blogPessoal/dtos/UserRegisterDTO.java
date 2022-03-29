@@ -13,6 +13,26 @@ public class UserRegisterDTO {
     @NotNull
     private String password;
 
+    private String picture;
+
+    private String role;
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public UserRegisterDTO(@NotNull String name, @NotNull String username, @NotNull String password) {
         this.name = name;
         this.username = username;

@@ -2,6 +2,8 @@ package org.generation.blogPessoal.dtos;
 
 public class UserCredentialsDTO {
 
+    private Long id;
+
     private String name;
 
     private String username;
@@ -10,11 +12,44 @@ public class UserCredentialsDTO {
 
     private String token;
 
+    private String picture;
+
+    private String role;
+
     public UserCredentialsDTO(String name, String username, String password, String token) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.token = token;
+    }
+
+    public UserCredentialsDTO(String name, String username, String password, String token, String picture,
+            String role) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.token = token;
+        this.picture = picture;
+        this.role = role;
+    }
+
+    public UserCredentialsDTO(Long id, String name, String username, String password, String token, String picture,
+            String role) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.token = token;
+        this.picture = picture;
+        this.role = role;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -48,5 +83,23 @@ public class UserCredentialsDTO {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+
 
 }
