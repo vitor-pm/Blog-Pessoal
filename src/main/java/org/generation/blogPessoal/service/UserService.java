@@ -105,6 +105,14 @@ public class UserService {
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(users);
         }
+    }
 
+    public ResponseEntity<UserModel> getUserByID(Long id) {
+        Optional<UserModel> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            return ResponseEntity.status(HttpStatus.OK).body(user.get());
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID não encontrado");
+        }
     }
 }

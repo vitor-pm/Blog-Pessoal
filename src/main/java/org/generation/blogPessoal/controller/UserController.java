@@ -59,6 +59,12 @@ public class UserController {
         return userService.deleteUserByID(id);
     }
 
+    @Operation(summary = "Buscar um usuario pelo ID")
+    @GetMapping("/id/{id}")
+    public ResponseEntity<UserModel> findUserById(Long id) {
+        return userService.getUserByID(id);
+    }
+
     @Operation(summary = "Listar todos usuarios")
     @GetMapping("/all")
     public ResponseEntity<List<UserModel>> listUser() {
