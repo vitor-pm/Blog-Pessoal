@@ -38,6 +38,7 @@ public class UserModel {
     @Size(min = 5, max = 100)
     private String password;
 
+    @Size(max = 5000)
     private String picture;
 
     private String role;
@@ -71,6 +72,15 @@ public class UserModel {
         this.name = name;
         this.username = username;
         this.password = password;
+    }
+
+    public UserModel(@NotNull @Size(min = 2, max = 100) String name, @NotNull @Size(min = 5, max = 100) String username,
+            @NotNull @Size(min = 5, max = 100) String password, String picture, String role) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.picture = picture;
+        this.role = role;
     }
 
     public UserModel(String name, String username, String password) {

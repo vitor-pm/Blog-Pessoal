@@ -11,7 +11,7 @@ public class UserCredentialsDTO {
     private String password;
 
     private String token;
-
+    
     private String picture;
 
     private String role;

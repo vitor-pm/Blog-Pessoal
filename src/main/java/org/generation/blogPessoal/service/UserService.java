@@ -39,7 +39,9 @@ public class UserService {
             UserModel userModel = new UserModel(
                     user.getName(),
                     user.getUsername(),
-                    user.getPassword());
+                    user.getPassword(),
+                    user.getPicture(),
+                    user.getRole());
 
             return Optional.ofNullable(userRepository.save(userModel));
         }

@@ -24,7 +24,7 @@ public class Theme {
     @NotNull
     private String description;
 
-    @OneToMany(mappedBy = "theme", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "theme", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("theme")
     private List<Post> posts;
 
