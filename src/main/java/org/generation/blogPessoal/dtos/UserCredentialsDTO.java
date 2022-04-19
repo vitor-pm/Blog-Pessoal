@@ -11,29 +11,12 @@ public class UserCredentialsDTO {
     private String password;
 
     private String token;
-    
+
     private String picture;
 
     private String role;
 
-    public UserCredentialsDTO(String name, String username, String password, String token) {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.token = token;
-    }
-
-    public UserCredentialsDTO(String name, String username, String password, String token, String picture,
-            String role) {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.token = token;
-        this.picture = picture;
-        this.role = role;
-    }
-
-    public UserCredentialsDTO(Long id, String name, String username, String password, String token, String picture,
+    public UserCredentialsDTO(String token, Long id, String name, String username, String password, String picture,
             String role) {
         this.id = id;
         this.name = name;
@@ -99,7 +82,5 @@ public class UserCredentialsDTO {
     public void setRole(String role) {
         this.role = role;
     }
-
-
 
 }

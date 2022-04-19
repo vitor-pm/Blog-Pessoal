@@ -2,8 +2,6 @@ package org.generation.blogPessoal.controller;
 
 import java.util.List;
 
-import javax.security.auth.message.callback.SecretKeyCallback.Request;
-
 import org.generation.blogPessoal.model.Post;
 import org.generation.blogPessoal.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +37,7 @@ public class PostController {
 
     @Operation(summary = "Buscando uma postagem pelo ID")
     @GetMapping("/{id}")
-    public ResponseEntity<Post> findByIdPost(@PathVariable Long id, Request a) {
+    public ResponseEntity<Post> findByIdPost(@PathVariable Long id) {
         return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
                 .orElse(ResponseEntity.notFound().build());
 

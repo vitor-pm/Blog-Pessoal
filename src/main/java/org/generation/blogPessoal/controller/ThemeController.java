@@ -21,16 +21,16 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/theme")
 @Tag(name = "Controller de Temas", description = "Controller para cadastrar/listar/deletar/atualizar temas")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ThemeController {
 
     @Autowired
     private ThemeRepository repository;
 
     @Operation(summary = "Listar todo os temas")
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Theme>> getAll() {
         return ResponseEntity.ok(repository.findAll());
     }

@@ -48,32 +48,25 @@ public class UserService {
     }
 
     public ResponseEntity<UserCredentialsDTO> login(Optional<UserLoginDTO> user) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         Optional<UserModel> us = userRepository.findByUsername(user.get().getUsername());
 
         if (us.isPresent()) {
-            if (encoder.matches(user.get().getPassword(), us.get().getPassword())) {
-
-                String auth = user.get().getUsername() + ":" + user.get().getPassword();
-                byte[] encodeAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
-                String authHeader = "Basic " + new String(encodeAuth);
+            if (comparePassword(user.get().getPassword(), us.get().getPassword())) {
 
                 userLog = new UserCredentialsDTO(
+                        generatorBasicToken(user.get().getUsername(), user.get().getPassword()),
                         us.get().getId(),
                         us.get().getName(),
                         us.get().getUsername(),
                         us.get().getPassword(),
-                        authHeader,
                         us.get().getPicture(),
                         us.get().getRole());
 
                 return ResponseEntity.status(HttpStatus.OK).body(userLog);
-            } else {
-                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Senha invalida");
             }
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado");
         }
+        throw new ResponseStatusException(
+                HttpStatus.UNAUTHORIZED, "Usuário ou senha inválidos!", null);
 
     }
 
@@ -119,5 +112,16 @@ public class UserService {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "ID não encontrado");
         }
+    }
+
+    private boolean comparePassword(String senhaDigitada, String senhaBanco) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.matches(senhaDigitada, senhaBanco);
+    }
+
+    private String generatorBasicToken(String email, String password) {
+        String structure = email + ":" + password;
+        byte[] structureBase64 = Base64.encodeBase64(structure.getBytes(Charset.forName("US-ASCII")));
+        return "Basic " + new String(structureBase64);
     }
 }

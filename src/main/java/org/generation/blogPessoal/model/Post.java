@@ -1,12 +1,14 @@
 package org.generation.blogPessoal.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,6 +44,17 @@ public class Post {
     @ManyToOne
     @JsonIgnoreProperties("myPosts")
     private UserModel creator;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comments> comments;
+
+    public List<Comments> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
+    }
 
     public long getId() {
         return this.id;
